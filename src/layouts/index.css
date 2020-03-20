@@ -2,7 +2,6 @@
 .normal {
   font-family: Georgia, sans-serif;
   text-align: center;
-  background-color: aqua;
   height: 100vh;
 }
 
@@ -15,7 +14,7 @@
   font-weight: normal;
   letter-spacing: -1px;
   background: darkslateblue;
-  padding: .6em 0;
+  padding: .2em 0;
   color: white;
   margin: 0;
 }
