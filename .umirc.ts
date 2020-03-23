@@ -6,6 +6,9 @@ export default defineConfig({
   },
   // ssr:{},
   antd: {},
+  // theme:{
+  //   'primary-color':'#000'
+  // },
   hash: true,
   dynamicImport: {
     loading: '@/pages/components/loading',
@@ -37,6 +40,12 @@ export default defineConfig({
       exact: true,
       path: '/userAgreement',
       component: '@/components/userAgreement',
+      title: '用户协议',
+    },
+    {
+      exact: true,
+      path: '/write',
+      component: '@/pages/edit',
       title: '用户协议',
     },
     {

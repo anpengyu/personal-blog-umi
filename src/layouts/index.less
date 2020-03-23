@@ -1,0 +1,63 @@
+.normal {
+  font-family: Georgia, sans-serif;
+  text-align: center;
+  // height: 100vh;
+}
+
+.nav {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #eee;
+  width: 100%;
+  height: 56px;
+  min-height: 50px;
+  line-height: 56px;
+  background-color: white;
+  z-index: 1000;
+
+  //  顶部导航栏
+  .nav_row {
+    width: 1200px;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    .nav_title {
+      display: flex;
+
+      .tab {
+        padding-left: 20px;
+        padding-right: 20px;
+        cursor: pointer;
+      }
+      .currentTab {
+        border-bottom: 2px solid rebeccapurple;
+        color: rebeccapurple;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
+
+    .search {
+      width: 300px;
+      padding: 1em;
+    }
+  }
+}
+
+.background {
+  background-color: aqua;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: normal;
+  letter-spacing: -1px;
+  background: darkslateblue;
+  padding: 0.2em 0;
+  color: white;
+  margin: 0;
+}

@@ -1,5 +1,10 @@
 FROM node:alpine as builder
 
+LABEL version="1.0"
+LABEL email="apyaxd@aliyun.com"
+LABEL description="构建umi项目"
+LABEL author="anpy"
+
 WORKDIR /usr/src/app/
 USER root
 
