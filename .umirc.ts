@@ -6,9 +6,10 @@ export default defineConfig({
   },
   // ssr:{},
   antd: {},
-  // theme:{
-  //   'primary-color':'#000'
-  // },
+  theme: {
+    '@primary-color': '#000000',
+    '@fill-body': '#000000',
+  },
   hash: true,
   dynamicImport: {
     loading: '@/pages/components/loading',
@@ -60,7 +61,7 @@ export default defineConfig({
         {
           exact: true,
           path: '/',
-          component: '@/pages/index',
+          component: '@/pages/home/index',
           title: '前端学习笔记',
         },
         {

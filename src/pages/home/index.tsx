@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './index.less';
 import { history, Link } from 'umi';
-import Articles from './home/components/Articles';
-import RithtComponet from './home/components/RithtComponet';
-import LeftComponent from './home/components/LeftComponent';
+import Articles from './components/Articles';
+import RithtComponet from './components/RithtComponet';
+import LeftComponent from './components/LeftComponent';
 
 /**
  * 主界面
@@ -15,6 +15,10 @@ import LeftComponent from './home/components/LeftComponent';
  * @returns
  */
 export default class Index extends React.Component {
+  componentDidMount() {
+    console.log('componentDidMount', this.props);
+  }
+
   render() {
     return (
       <div>

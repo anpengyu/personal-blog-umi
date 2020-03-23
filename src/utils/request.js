@@ -8,15 +8,13 @@ import qs from 'qs';
 // import objectToFormData from './object';
 
 function checkStatus(response) {
-
   const { status, data } = response;
   const { error, msg, result } = data;
   if (status >= 200 && status < 300) {
-    console.log('data.msg', response)
+    console.log('data.msg', response);
     if (data.code == 0) {
       return result.data;
     }
-
   } else if (status == 422) {
     notification.error({
       message: msg,
@@ -40,13 +38,14 @@ export default async function request(url, options) {
     method: 'GET',
     credentials: 'include',
     headers: {
-      'authentication': localStorage.getItem('token')
+      authorization: localStorage.getItem('token'),
     },
     // credentials: 'include',
   };
-  console.log('headers',defaultOptions.headers)
+  console.log('headers', defaultOptions.headers);
   let newUrl =
-    location.hostname === 'localhost' || location.hostname === 'static.joinuscn.com'
+    location.hostname === 'localhost' ||
+    location.hostname === 'static.joinuscn.com'
       ? `${url}`
       : url;
   const newOptions = { ...defaultOptions, ...options };
@@ -65,7 +64,11 @@ export default async function request(url, options) {
     };
     // newOptions.body = objectToFormData(newOptions.body);
     newOptions.method = method.substring(0, method.length - 4);
-  } else if (method === 'GET' && newOptions.body && JSON.stringify(newOptions.body) !== '{}') {
+  } else if (
+    method === 'GET' &&
+    newOptions.body &&
+    JSON.stringify(newOptions.body) !== '{}'
+  ) {
     newUrl = `${newUrl}?${qs.stringify(newOptions.body)}`;
     delete newOptions.body;
   }
@@ -93,8 +96,7 @@ export default async function request(url, options) {
     }
     if (e == 422) {
       // message.err(e)
-      console.log('e', e)
-
+      console.log('e', e);
     }
 
     // const { dispatch } = store;

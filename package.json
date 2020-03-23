@@ -22,6 +22,7 @@
     "@types/qs": "^6.9.1",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.0.10",
+    "braft-editor": "^2.3.9",
     "dva-logger": "^1.0.0",
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
