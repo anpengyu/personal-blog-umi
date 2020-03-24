@@ -15,8 +15,8 @@ export const routes = [
   {
     exact: true,
     path: '/write',
-    component: '@/pages/edit',
-    title: '用户协议',
+    component: '@/pages/article',
+    title: '发布文章',
   },
   {
     exact: true,

@@ -103,6 +103,10 @@ class BasicLayout extends React.Component<any, StateComponent> {
     );
   };
 
+  clickToHome = () => {
+    history.push('/');
+  };
+
   render() {
     const { currentTab, isLogin, userInfo } = this.state;
     console.log('isLogin', isLogin);
@@ -113,7 +117,13 @@ class BasicLayout extends React.Component<any, StateComponent> {
           <div className={styles.nav_row}>
             <div className={styles.nav_title}>
               <img
-                style={{ height: 50, width: 50, marginRight: 30 }}
+                onClick={this.clickToHome}
+                style={{
+                  height: 50,
+                  width: 50,
+                  marginRight: 30,
+                  cursor: 'pointer',
+                }}
                 src={require('../assets/timg.jpg')}
               />
               {tabs.map((item, index) => {
@@ -156,7 +166,10 @@ class BasicLayout extends React.Component<any, StateComponent> {
             </div>
           </div>
         </div>
-        <div style={{ paddingTop: 100 }}>{Layout(this.props, userInfo)}</div>
+
+        <div style={{ paddingTop: 100, width: '50%', margin: 'auto' }}>
+          {Layout(this.props, userInfo)}
+        </div>
       </div>
     );
   }

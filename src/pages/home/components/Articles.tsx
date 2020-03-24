@@ -1,7 +1,7 @@
 import React from 'react';
 import { ConnectRC, Loading, connect } from 'umi';
 import ArticleItemComponent from './ArticleItemComponent';
-
+import { Divider } from 'antd';
 interface PageProps {
   index: {};
   loading: boolean;
@@ -26,11 +26,7 @@ class Articles extends React.Component {
     } = this.props;
     return (
       <div style={{ display: 'inline-block' }}>
-        <div>热门</div>
-        <div>最新</div>
-        <div>推荐</div>
         <div>
-          {' '}
           {articleList.map(
             (item: { articleTitle: React.ReactNode }, index: number) => {
               return (

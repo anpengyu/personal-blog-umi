@@ -16,9 +16,11 @@ function checkStatus(response) {
       return result.data;
     }
   } else if (status == 422) {
+    console.log('msg,msg', msg);
     notification.error({
-      message: msg,
+      message: msg.msg,
     });
+    // message.err(msg)
   }
 
   const err = new Error(message);
@@ -89,9 +91,9 @@ export default async function request(url, options) {
     return checkStatus(ret);
   } catch (e) {
     if (e.message === 'Failed to fetch') {
-      notification.error({
-        message: '服务器无响应,请您稍后再试！',
-      });
+      // notification.error({
+      //   message: '服务器无响应,请您稍后再试！',
+      // });
       return { success: false };
     }
     if (e == 422) {
