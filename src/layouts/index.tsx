@@ -34,21 +34,22 @@ class BasicLayout extends React.Component<any, StateComponent> {
   }
 
   clickLogout = (key: number) => {
-    console.log('退出登录。。。');
     switch (key) {
       case MenuKeys.USER_INFO:
+        history.push('/userInfo');
         break;
       case MenuKeys.SETTING:
         break;
       case MenuKeys.LOGOUT:
-        console.log('退出登录');
         this.props.dispatch({
           type: 'base/logout',
           callback: () => {
-            this.setState({
-              isLogin: false,
-              userInfo: { username: '' },
-            });
+            // this.setState({
+            //   isLogin: false,
+            //   userInfo: { username: '' },
+            // });
+
+            window.location.reload(false);
           },
         });
         break;

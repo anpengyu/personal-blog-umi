@@ -22,10 +22,12 @@ export default class Index extends React.Component {
   render() {
     return (
       <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <LeftComponent />
-          <Articles />
-          <RithtComponet />
+        <div className={styles.normal}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            {/* <LeftComponent /> */}
+            <Articles />
+            <RithtComponet />
+          </div>
         </div>
       </div>
     );

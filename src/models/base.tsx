@@ -27,6 +27,7 @@ export default {
       //       articleList: ret,
       //     },
       //   });
+
       message.info('您已退出登录');
       callback();
     },

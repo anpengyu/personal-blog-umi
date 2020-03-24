@@ -21,7 +21,8 @@ export default {
       localStorage.setItem('token', ret.token);
       localStorage.setItem('userInfo', JSON.stringify(ret.userModel));
       message.info('登录成功');
-      history.push('/');
+      // history.push('/');
+      history.goBack();
     },
   },
 
