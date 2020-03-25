@@ -24,44 +24,19 @@ export default class ArticleItemComponent extends React.Component<
 
   //发帖距现在多长时间
   times(date: Date): string {
-    return moment(
-      moment(date).format('YYYY-MM-DD HH:mm:ss'),
-      'YYYY-MM-DD HH:mm:ss',
-    ).fromNow();
-
-    // //获取js 时间戳
-    // var time = new Date().getTime();
-    // //去掉 js 时间戳后三位，与php 时间戳保持一致
-    // time = parseInt(String((time - date.getTime()) / 1000));
-
-    // //存储转换值
-    // var s;
-    // if (time < 60 * 10) {//十分钟内
-    //   return '刚刚';
-    // } else if ((time < 60 * 60) && (time >= 60 * 10)) {
-    //   //超过十分钟少于1小时
-    //   s = Math.floor(time / 60);
-    //   return s + "分钟前";
-    // } else if ((time < 60 * 60 * 24) && (time >= 60 * 60)) {
-    //   //超过1小时少于24小时
-    //   s = Math.floor(time / 60 / 60);
-    //   return s + "小时前";
-    // } else if ((time < 60 * 60 * 24 * 3) && (time >= 60 * 60 * 24)) {
-    //   //超过1天少于3天内
-    //   s = Math.floor(time / 60 / 60 / 24);
-    //   return s + "天前";
-    // } else {
-    //   //超过3天
-    //   // var moreDate = new Date(date.getTime());
-    //   // return moreDate.getFullYear() + "/" + (moreDate.getMonth() + 1) + "/" + moreDate.getDate();
-    //   return moment(date).format('YYYY-MM-DD HH:mm:ss')
-    // }
+    return moment(new Date(date), 'YYYY-MM-DD HH:mm:ss').fromNow();
   }
+
+  //点击发帖用户
+  clickUserName = () => {
+    history.push('/userInfo');
+  };
 
   render() {
     const { item } = this.props;
+    const { user } = item;
     return (
-      <div style={{ backgroundColor: '#fff', marginTop: 1, padding: 10 }}>
+      <div style={{ backgroundColor: '#fff', marginTop: 1, paddingLeft: 10 }}>
         <div>
           <div className={styles.article_title} onClick={this.onClickTitle}>
             {item.articleTitle}
@@ -79,19 +54,45 @@ export default class ArticleItemComponent extends React.Component<
           {item.articleSubtitle}
         </div>
 
-        <div style={{ display: 'flex' }}>
-          <div>有疑问：{item.articledislikeCount}</div>
-          <div className={styles.article_bottom}>
-            访问：{item.articlePageView}
+        <div
+          style={{
+            display: 'flex',
+            height: '50px',
+            lineHeight: '50px',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div style={{ display: 'flex' }}>
+            <div
+              style={{ display: 'flex', cursor: 'pointer' }}
+              onClick={this.clickUserName.bind(this, user.id)}
+            >
+              <img
+                style={{
+                  height: 40,
+                  width: 40,
+                  marginTop: 5,
+                  borderRadius: 50,
+                }}
+                src={require('../../../assets/head.jpg')}
+              />
+              <div className={styles.user_name}>{user.username}</div>
+            </div>
+            <div className={styles.article_bottom}>
+              发布时间：{this.times(item.createDate)}
+            </div>
           </div>
-          <div className={styles.article_bottom}>
-            评论：{item.articleCommentCount}
-          </div>
-          <div className={styles.article_bottom}>
-            获赞：{item.articlePraiseCount}
-          </div>
-          <div className={styles.article_bottom}>
-            发布时间：{this.times(item.createDate)}
+          {/* <div className={styles.article_bottom}>有疑问：{item.articledislikeCount}</div> */}
+          <div style={{ display: 'flex', marginRight: 10 }}>
+            <div className={styles.article_bottom}>
+              访问：{item.articlePageView}
+            </div>
+            <div className={styles.article_bottom}>
+              评论：{item.articleCommentCount}
+            </div>
+            <div className={styles.article_bottom}>
+              获赞：{item.articlePraiseCount}
+            </div>
           </div>
         </div>
         {/* <Divider /> */}
