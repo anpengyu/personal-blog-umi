@@ -1,23 +1,32 @@
 import React from 'react';
-import { ConnectRC, Loading, connect } from 'umi';
+import { Loading, connect } from 'umi';
+import _ from 'lodash';
+import { ArticleDetailProps } from './data.d';
 
-interface PageProps {
-    index: {};
-    loading: boolean;
-}
-class ArticlesDetail extends React.Component {
+class ArticlesDetail extends React.Component<ArticleDetailProps> {
 
-    constructor(props: any) {
-        super(props);
-        props.dispatch({
-            type: 'articleDetail/loadArticleDetail',
-            payload: {
-                id: props.match.params.id
-            }
-        })
-    }
-    buildPreviewHtml = (article) => {
-        return `
+  constructor(props: any) {
+    super(props);
+    props.dispatch({
+      type: 'articleDetail/loadArticleDetail',
+      payload: {
+        id: props.match.params.id
+      }
+    })
+  }
+
+  componentWillUnmount() {
+    console.log('a')
+    this.props.dispatch({
+      type: 'articleDetail/updateState',
+      payload: {
+        article: []
+      }
+    })
+  }
+
+  buildPreviewHtml = (articleContent: string) => {
+    return `
           <!Doctype html>
           <html>
             <head>
@@ -68,34 +77,38 @@ class ArticlesDetail extends React.Component {
               </style>
             </head>
             <body>
-            <div class="container">${article.articleContent}</div>
+            <div class="container">${articleContent}</div>
             </body>
           </html>
         `
-    
-      }
-    render() {
-        const { articleDetail: { article = [] } } = this.props;
-        console.log('articleItem', article)
-        return (
-            <div>
-                <div>
-                    <div>{article.articleTitle}</div>
-                    <div>{article.createDate}</div>
-                    <div>{article.updateDate}</div>
-                    <div>{article.articlePraiseCount}</div>
-                    <div>{article.articledislikeCount}</div>
-                    <div>{article.articledislikeCount}</div>
-                    <div>{article.articleCommentCount}</div>
-                    <div dangerouslySetInnerHTML={{ __html: this.buildPreviewHtml(article)}}></div>
-                </div>
 
-            </div>
-        );
-    }
+  }
+  render() {
+    const { articleDetail: { article = [] } } = this.props;
+    console.log('articleItem', article)
+    return (
+      <div style={{ height: '80vh' }}>
+        {
+          article && !_.isEmpty(article) &&
+          <div>
+            <div>{article.articleTitle || ''}</div>
+            <div>{article.createDate}</div>
+            <div>{article.updateDate}</div>
+            <div>{article.articlePraiseCount}</div>
+            <div>{article.articlePageView}</div>
+            <div>{article.articledislikeCount}</div>
+            <div>{article.articleCommentCount}</div>
+            <div dangerouslySetInnerHTML={{ __html: this.buildPreviewHtml(article.articleContent) }}></div>
+          </div>
+        }
+
+
+      </div>
+    );
+  }
 }
 
-export default connect(({ articleDetail, loading }: { home: {}; loading: Loading }) => ({
-    articleDetail,
-    loading: loading.models.user,
+export default connect(({ articleDetail, loading }: { articleDetail: {}; loading: Loading }) => ({
+  articleDetail,
+  loading: loading.models.user,
 }))(ArticlesDetail)

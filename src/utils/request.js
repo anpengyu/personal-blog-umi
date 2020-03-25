@@ -10,6 +10,7 @@ import qs from 'qs';
 function checkStatus(response) {
   const { status, data } = response;
   const { error, msg, result } = data;
+  console.log('status', status);
   if (status >= 200 && status < 300) {
     console.log('data.msg', response);
     if (data.code == 0) {
@@ -18,9 +19,9 @@ function checkStatus(response) {
   } else if (status == 422) {
     console.log('msg,msg', msg);
     notification.error({
-      message: msg.msg,
+      message: msg,
     });
-    // message.err(msg)
+    return {};
   }
 
   const err = new Error(message);

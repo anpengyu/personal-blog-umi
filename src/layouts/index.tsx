@@ -166,9 +166,8 @@ class BasicLayout extends React.Component<any, StateComponent> {
             </div>
           </div>
         </div>
-
-        <div style={{ paddingTop: 100, width: '50%', margin: 'auto' }}>
-          {Layout(this.props, userInfo)}
+        <div className={styles.layout_background}>
+          <div className={styles.layout}>{Layout(this.props, userInfo)}</div>
         </div>
       </div>
     );

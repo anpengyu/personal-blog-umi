@@ -2,12 +2,13 @@ import 'braft-extensions/dist/code-highlighter.css';
 
 import 'braft-editor/dist/index.css';
 import React from 'react';
-import { connect } from 'umi';
+import { connect, Loading } from 'umi';
 import { Input, message } from 'antd';
 import BraftEditor from 'braft-editor';
 import _ from 'lodash';
 
 import CodeHighlighter from 'braft-extensions/dist/code-highlighter';
+import { AddArticleProps, AddArticleState, StateType } from './data';
 BraftEditor.use(
   CodeHighlighter({
     includeEditors: ['editor-with-code-highlighter'],
@@ -18,8 +19,8 @@ BraftEditor.use(
  * 添加新文章
  * @date 2020-03-24
  */
-class AddArticle extends React.Component<any, AddArticleStateComponent> {
-  constructor(props) {
+class AddArticle extends React.Component<AddArticleProps, AddArticleState> {
+  constructor(props: Readonly<AddArticleProps>) {
     super(props);
     this.state = {
       editorState: BraftEditor.createEditorState(),
@@ -40,23 +41,29 @@ class AddArticle extends React.Component<any, AddArticleStateComponent> {
     window.previewWindow.document.write(this.buildPreviewHtml());
     window.previewWindow.document.close();
   };
-  delHtmlTag(str) {
+  delHtmlTag(str: string) {
     return str.replace(/<[^>]+>/g, ''); //正则去掉所有的html标记
   }
   //添加文章
   submit = () => {
     const { articleTitle, editorState } = this.state;
-    console.log('editorState', editorState.toHTML());
+    console.log(editorState.toHTML());
     console.log(this.delHtmlTag(editorState.toHTML()));
+
     if (_.isEmpty(articleTitle) || _.isEmpty(editorState)) {
       message.error('文章标题或者内容不能为空~');
       return;
     }
-
+    let articleSubtitle = this.delHtmlTag(editorState.toHTML()).substring(
+      0,
+      100,
+    );
+    console.log(articleSubtitle);
     this.props.dispatch({
       type: 'addArticle/addArticle',
       payload: {
         articleTitle,
+        articleSubtitle,
         articleContent: editorState.toHTML(),
       },
     });
@@ -120,7 +127,7 @@ class AddArticle extends React.Component<any, AddArticleStateComponent> {
     `;
   }
 
-  changeTitle = e => {
+  changeTitle = (e: { target: { value: any } }) => {
     console.log('e', e.target.value);
     this.setState({
       articleTitle: e.target.value,
@@ -184,7 +191,9 @@ class AddArticle extends React.Component<any, AddArticleStateComponent> {
 {
   /* <div dangerouslySetInnerHTML={{ __html: this.buildPreviewHtml() }}></div> */
 }
-export default connect(({ addArticle, loading }) => ({
-  addArticle,
-  loading: loading.models.addArticle,
-}))(AddArticle);
+export default connect(
+  ({ addArticle, loading }: { addArticle: StateType; loading: Loading }) => ({
+    addArticle,
+    loading: loading.models.addArticle,
+  }),
+)(AddArticle);

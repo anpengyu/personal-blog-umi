@@ -9,7 +9,7 @@ const data = [
 export default class Articles extends React.Component {
   render() {
     return (
-      <div>
+      <div style={{ display: 'inline-block', width: '30%', paddingLeft: 20 }}>
         <div>少时诵诗书所</div>
       </div>
     );

@@ -23,7 +23,7 @@ export default class Index extends React.Component {
     return (
       <div>
         <div className={styles.normal}>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex' }}>
             {/* <LeftComponent /> */}
             <Articles />
             <RithtComponet />

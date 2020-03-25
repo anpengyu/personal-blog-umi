@@ -1,7 +1,7 @@
 import { addArticle } from '../services';
 import { parse } from 'qs';
 import { history, Link } from 'umi';
-import { message } from 'antd';
+import _ from 'lodash';
 
 export default {
   state: {
@@ -22,13 +22,16 @@ export default {
      */
     *addArticle({ payload = {} }, { call, put }) {
       const ret = yield call(addArticle, parse(payload));
+      if (!_.isEmpty(ret)) {
+        history.push('/');
+        console.log('list》》》》》》》》》》》》》', ret);
+      }
       //   yield put({
       //     type: 'updateState',
       //     payload: {
       //       articleList: ret,
       //     },
       //   });
-      console.log('list》》》》》》》》》》》》》', ret);
     },
   },
 
