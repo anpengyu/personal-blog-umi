@@ -18,7 +18,7 @@ interface Item {
   articlePageView: number;
   articleCommentCount: number;
   articlePraiseCount: number;
-  articleSubtitle: string;
+  articleSubTitle: string;
   createDate: Date;
   user: User;
 }

@@ -19,6 +19,7 @@ export default class ArticleItemComponent extends React.Component<
 > {
   onClickTitle = () => {
     const { item } = this.props;
+    console.log('onClickTitle', item);
     history.push(`/article/${item.id}`);
   };
 
@@ -34,6 +35,7 @@ export default class ArticleItemComponent extends React.Component<
 
   render() {
     const { item } = this.props;
+    console.log('item', item);
     const { user } = item;
     return (
       <div style={{ backgroundColor: '#fff', marginTop: 1, padding: 20 }}>
@@ -51,7 +53,7 @@ export default class ArticleItemComponent extends React.Component<
             paddingBottom: 10,
           }}
         >
-          {item.articleSubtitle}
+          {item.articleSubTitle}
         </div>
 
         <div
@@ -76,10 +78,10 @@ export default class ArticleItemComponent extends React.Component<
                 }}
                 src={require('../../../assets/head.jpg')}
               />
-              <div className={styles.user_name}>{user.username}</div>
+              <div className={styles.user_name}>{user.name}</div>
             </div>
             <div className={styles.article_bottom}>
-              发布时间：{this.times(item.createDate)}
+              发布时间：{this.times(item.created_at)}
             </div>
           </div>
           {/* <div className={styles.article_bottom}>有疑问：{item.articledislikeCount}</div> */}
