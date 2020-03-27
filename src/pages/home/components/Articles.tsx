@@ -1,9 +1,8 @@
 import React, { Fragment } from 'react';
 import { ConnectRC, Loading, connect } from 'umi';
 import ArticleItemComponent from './ArticleItemComponent';
-import { ArticleItemProps, StateType } from '../data.d';
+import { ArticleItemProps, StateType, ALL_ARTICLES } from '../data.d';
 
-import gql from 'graphql-tag';
 import { Query, graphql } from 'react-apollo';
 
 /**
@@ -13,28 +12,6 @@ import { Query, graphql } from 'react-apollo';
  * @date 2020-03-20
  * @class Articles
  */
-
-const ALL_ARTICLES = gql`
-  # 获取所有文章/用户信息
-  query AllArticles {
-    allArticles {
-      id
-      articleTitle
-      articleSubTitle
-      articlePageView
-      articlePraiseCount
-      articleDislikeCount
-      articleCommentCount
-      created_at
-      user {
-        id
-        name
-        sex
-        headImg
-      }
-    }
-  }
-`;
 
 export default class Articles extends React.Component<ArticleItemProps, any> {
   render() {
@@ -48,7 +25,7 @@ export default class Articles extends React.Component<ArticleItemProps, any> {
                 <Fragment>
                   {data.allArticles.map((item, index: number) => {
                     return (
-                      <div key={index} style={{ paddingTop: 20 }}>
+                      <div key={index} style={{}}>
                         <ArticleItemComponent item={item} />
                       </div>
                     );
@@ -62,10 +39,3 @@ export default class Articles extends React.Component<ArticleItemProps, any> {
     );
   }
 }
-
-// export default connect(
-//   ({ home, loading }: { home: StateType; loading: Loading }) => ({
-//     home,
-//     loading: loading.models.user,
-//   }),
-// )(Articles);

@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-
+import gql from 'graphql-tag';
 export interface ArticleDetailProps {
   dispatch: Dispatch<any>;
   articleDetail?: any;
@@ -19,6 +19,32 @@ interface article {
 export interface StateType {
   article: article;
 }
+
+export const ARTICLE_DETIAL = gql`
+  # 根据文章id获取文章详情
+  query ArticleDetail($id: ID!) {
+    article(id: $id) {
+      id
+      userId
+      articleTitle
+      articleContent
+      articlePageView
+      articlePraiseCount
+      articleDislikeCount
+      articleCommentCount
+      updated_at
+      created_at
+      user {
+        id
+        username
+        articles {
+          articleTitle
+          articleContent
+        }
+      }
+    }
+  }
+`;
 
 export const buildPreviewHtml = (articleContent: string) => {
   return `

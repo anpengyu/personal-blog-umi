@@ -48,7 +48,7 @@ class ContentComponent extends React.Component<ArticleDetailProps> {
               <div className={styles.user_name}>{user.username}</div>
             </div>
             <div className={styles.article_bottom}>
-              发布时间：{this.times(article.createDate)}
+              发布时间：{this.times(article.created_at)}
             </div>
           </div>
           {/* <div className={styles.article_bottom}>有疑问：{item.articledislikeCount}</div> */}
@@ -66,6 +66,7 @@ class ContentComponent extends React.Component<ArticleDetailProps> {
           </div>
         </div>
         <div
+          style={{ marginTop: 20 }}
           dangerouslySetInnerHTML={{
             __html: buildPreviewHtml(article.articleContent),
           }}

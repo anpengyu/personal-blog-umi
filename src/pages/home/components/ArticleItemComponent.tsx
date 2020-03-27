@@ -19,7 +19,6 @@ export default class ArticleItemComponent extends React.Component<
 > {
   onClickTitle = () => {
     const { item } = this.props;
-    console.log('onClickTitle', item);
     history.push(`/article/${item.id}`);
   };
 
@@ -97,7 +96,6 @@ export default class ArticleItemComponent extends React.Component<
             </div>
           </div>
         </div>
-        {/* <Divider /> */}
       </div>
     );
   }

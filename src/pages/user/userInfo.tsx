@@ -10,7 +10,7 @@ const USER_INFO = gql`
   query UserInfo {
     user(id: "1") {
       id
-      name
+      username
       items {
         id
         content
@@ -57,7 +57,7 @@ class UserInfo extends React.Component<any, any> {
           {({ loading, data }) => {
             if (!loading) {
               console.log('data', data.user);
-              return <Fragment>{data.user.name}</Fragment>;
+              return <Fragment>{data.user.username}</Fragment>;
             }
 
             return <div>loading......</div>;
