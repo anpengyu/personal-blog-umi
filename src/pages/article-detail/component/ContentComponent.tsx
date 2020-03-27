@@ -1,27 +1,10 @@
-import 'braft-extensions/dist/code-highlighter.css';
-import 'braft-editor/dist/index.css';
 import React from 'react';
-import { history } from 'umi';
-import { Divider } from 'antd';
-import moment from 'moment';
+import { Loading, connect, history } from 'umi';
 import styles from '../index.less';
-import { ArticleItemProps } from '../data.d';
-/**
- * 首页-文章列表-条目
- *
- * @author apy
- * @date 2020-03-20
- * @class ArticlesItemComponent
- */
-export default class ArticleItemComponent extends React.Component<
-  ArticleItemProps,
-  any
-> {
-  onClickTitle = () => {
-    const { item } = this.props;
-    history.push(`/article/${item.id}`);
-  };
+import moment from 'moment';
+import { ArticleDetailProps, buildPreviewHtml } from '../data.d';
 
+class ContentComponent extends React.Component<ArticleDetailProps> {
   //发帖距现在多长时间
   times(date: Date): string {
     return moment(new Date(date), 'YYYY-MM-DD HH:mm:ss').fromNow();
@@ -31,27 +14,13 @@ export default class ArticleItemComponent extends React.Component<
   clickUserName = () => {
     history.push('/userInfo');
   };
-
   render() {
-    const { item } = this.props;
-    const { user } = item;
+    const { article } = this.props;
+    const { user } = article;
     return (
-      <div style={{ backgroundColor: '#fff', marginTop: 1, padding: 20 }}>
+      <div className={styles.content}>
         <div>
-          <div className={styles.article_title} onClick={this.onClickTitle}>
-            {item.articleTitle}
-          </div>
-        </div>
-        <div
-          style={{
-            maxLines: 2,
-            color: '#999',
-            textOverflow: 'ellipsis',
-            paddingTop: 10,
-            paddingBottom: 10,
-          }}
-        >
-          {item.articleSubtitle}
+          <div className={styles.article_title}>{article.articleTitle}</div>
         </div>
 
         <div
@@ -79,24 +48,36 @@ export default class ArticleItemComponent extends React.Component<
               <div className={styles.user_name}>{user.username}</div>
             </div>
             <div className={styles.article_bottom}>
-              发布时间：{this.times(item.createDate)}
+              发布时间：{this.times(article.createDate)}
             </div>
           </div>
           {/* <div className={styles.article_bottom}>有疑问：{item.articledislikeCount}</div> */}
           <div style={{ display: 'flex', marginRight: 10 }}>
             <div className={styles.article_bottom}>
-              访问：{item.articlePageView}
+              阅读数：{article.articlePageView}
             </div>
-            <div className={styles.article_bottom}>
-              评论：{item.articleCommentCount}
-            </div>
-            <div className={styles.article_bottom}>
-              获赞：{item.articlePraiseCount}
-            </div>
+            {/* <div className={styles.article_bottom}>
+                    评论：{article.articleCommentCount}
+                  </div>
+                  <div className={styles.article_bottom}>
+                    获赞：{article.articlePraiseCount}
+                  </div> */}
+            <div className={styles.article_bottom}>收藏</div>
           </div>
         </div>
-        {/* <Divider /> */}
+        <div
+          dangerouslySetInnerHTML={{
+            __html: buildPreviewHtml(article.articleContent),
+          }}
+        ></div>
       </div>
     );
   }
 }
+
+export default connect(
+  ({ articleDetail, loading }: { articleDetail: {}; loading: Loading }) => ({
+    articleDetail,
+    loading: loading.models.user,
+  }),
+)(ContentComponent);

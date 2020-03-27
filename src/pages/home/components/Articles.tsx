@@ -29,7 +29,7 @@ class Articles extends React.Component<ArticleItemProps, any> {
         <div>
           {articleList.map((item, index: number) => {
             return (
-              <div key={index}>
+              <div key={index} style={{ paddingTop: 20 }}>
                 <ArticleItemComponent item={item} />
               </div>
             );
