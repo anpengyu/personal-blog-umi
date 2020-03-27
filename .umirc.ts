@@ -1,10 +1,11 @@
-import { defineConfig } from 'umi';
+import { defineConfig, createBrowserHistory } from 'umi';
 import { routes } from './src/config/routes';
 
 export default defineConfig({
   dva: {
     immer: true,
   },
+  history: { type: 'hash' },
   // ssr:{},
   antd: {},
   theme: {

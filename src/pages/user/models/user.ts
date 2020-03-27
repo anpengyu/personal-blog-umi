@@ -1,4 +1,4 @@
-import { login } from '../services/';
+import { login, loadNewArticle } from '../services/';
 import { parse, stringify } from 'qs';
 import { history, Link } from 'umi';
 import { message } from 'antd';
@@ -8,6 +8,7 @@ export default {
   state: {
     count: 0,
     list: [],
+    articleList: [],
   },
 
   subscriptions: {
@@ -27,18 +28,25 @@ export default {
         history.goBack();
       }
     },
+
+    *loadNewArticle({ payload = {} }, { call, put }) {
+      const ret = yield call(loadNewArticle, parse(payload));
+      yield put({
+        type: 'updateState',
+        payload: {
+          articleList: ret,
+        },
+      });
+      console.log('list》》》》》》》》》》》》》', ret);
+    },
   },
 
   reducers: {
-    saveList(state: any, action: { payload: any }) {
+    updateState(state: any, { payload }: any) {
       return {
         ...state,
-        list: action.payload,
+        ...payload,
       };
-    },
-    demo(state: any, action: { payload: any }) {
-      state.count += 2;
-      console.log('demo');
     },
   },
 };

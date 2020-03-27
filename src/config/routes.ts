@@ -48,6 +48,7 @@ export const routes = [
         exact: true,
         path: '/userInfo',
         component: '@/pages/user/userInfo',
+        title: '个人中心',
       },
     ],
   },
