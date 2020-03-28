@@ -34,7 +34,6 @@ export default class ArticleItemComponent extends React.Component<
 
   render() {
     const { item } = this.props;
-    console.log('item', item);
     const { user } = item;
     return (
       <div style={{ backgroundColor: '#fff', marginTop: 1, padding: 20 }}>

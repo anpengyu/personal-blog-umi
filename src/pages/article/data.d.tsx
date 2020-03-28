@@ -72,11 +72,11 @@ const buildPreviewHtml = (content: String) => {
   `;
 };
 
-const ADD_ARTICLE = gql`
+export const ADD_ARTICLE = gql`
   mutation(
-    $userId: String!
-    $articleSubTitle: String!
+    $userId: ID!
     $articleTitle: String!
+    $articleSubTitle: String!
     $articleContent: String!
   ) {
     createArticle(
@@ -93,4 +93,4 @@ const ADD_ARTICLE = gql`
   }
 `;
 
-export { buildPreviewHtml, ADD_ARTICLE };
+export { buildPreviewHtml };

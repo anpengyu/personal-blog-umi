@@ -38,14 +38,14 @@ class BasicLayout extends React.Component<any, any> {
     const { userInfo } = this.state;
     console.log('history', history);
     return (
-      <ApolloProvider client={client}>
-        <div className={styles.normal}>
-          <TitleComponent />
-          <div className={styles.layout_background}>
-            <div className={styles.layout}>{Layout(this.props, userInfo)}</div>
-          </div>
+      // <ApolloProvider client={client}>
+      <div className={styles.normal}>
+        <TitleComponent />
+        <div className={styles.layout_background}>
+          <div className={styles.layout}>{Layout(this.props, userInfo)}</div>
         </div>
-      </ApolloProvider>
+      </div>
+      // </ApolloProvider>
     );
   }
 }
