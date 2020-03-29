@@ -6,9 +6,9 @@ import { connect, Loading, history } from 'umi';
 import { Input, message, Button } from 'antd';
 import BraftEditor from 'braft-editor';
 import _ from 'lodash';
-import { Mutation } from 'react-apollo';
 import CodeHighlighter from 'braft-extensions/dist/code-highlighter';
-import ErrorMessage from '../../Error';
+import MutaionComponent from './componments/MutationComponent';
+import BraftEditorComponent from './componments/BraftEditorComponent';
 import {
   AddArticleProps,
   AddArticleState,
@@ -26,7 +26,10 @@ BraftEditor.use(
  * 添加新文章
  * @date 2020-03-24
  */
-class AddArticle extends React.Component<AddArticleProps, AddArticleState> {
+export default class AddArticle extends React.Component<
+  AddArticleProps,
+  AddArticleState
+> {
   constructor(props: Readonly<AddArticleProps>) {
     super(props);
     this.state = {
@@ -48,7 +51,7 @@ class AddArticle extends React.Component<AddArticleProps, AddArticleState> {
 
   submit = (createArticle: () => Promise<any>) => {
     const { articleTitle, editorState } = this.state;
-    if (_.isEmpty(articleTitle) || _.isEmpty(editorState)) {
+    if (_.isEmpty(articleTitle) || editorState.toHTML() === '<p></p>') {
       message.error('文章标题或者内容不能为空~');
       return;
     }
@@ -56,7 +59,6 @@ class AddArticle extends React.Component<AddArticleProps, AddArticleState> {
   };
 
   changeTitle = (e: { target: { value: any } }) => {
-    console.log('e', e.target.value);
     this.setState({
       articleTitle: e.target.value,
     });
@@ -67,7 +69,11 @@ class AddArticle extends React.Component<AddArticleProps, AddArticleState> {
 
     return (
       <div style={{ display: 'flex' }}>
-        <div style={{ display: 'inline-block', width: '50%' }}>
+        <BraftEditorComponent
+          changeTitle={this.changeTitle}
+          handleChange={this.handleChange}
+        />
+        {/* <div style={{ display: 'inline-block', width: '50%' }}>
           <div
             style={{
               // width: '90%',
@@ -93,35 +99,12 @@ class AddArticle extends React.Component<AddArticleProps, AddArticleState> {
               />
             </div>
           </div>
-        </div>
-        <Mutation
-          mutation={ADD_ARTICLE}
-          variables={{
-            userId: 1,
-            articleContent: editorState.toHTML(),
-            articleSubTitle: this.delHtmlTag(editorState.toHTML()).substring(
-              0,
-              100,
-            ),
-            articleTitle,
-          }}
-        >
-          {(createArticle: any, { data, loading, error }: any) => (
-            <div>
-              {error && <ErrorMessage error={error} />}
-              <Fragment>
-                <div>
-                  <Button
-                    type="submit"
-                    onClick={this.submit.bind(this, createArticle)}
-                  >
-                    提交
-                  </Button>
-                </div>
-              </Fragment>
-            </div>
-          )}
-        </Mutation>
+        </div> */}
+
+        <MutaionComponent
+          articleTitle={articleTitle}
+          editorState={editorState}
+        />
         <div
           style={{ height: '100vh', marginLeft: 100 }}
           dangerouslySetInnerHTML={{
@@ -132,9 +115,3 @@ class AddArticle extends React.Component<AddArticleProps, AddArticleState> {
     );
   }
 }
-export default connect(
-  ({ addArticle, loading }: { addArticle: StateType; loading: Loading }) => ({
-    addArticle,
-    loading: loading.models.addArticle,
-  }),
-)(AddArticle);
