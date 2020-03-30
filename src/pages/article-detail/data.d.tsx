@@ -19,27 +19,79 @@ interface article {
 export interface StateType {
   article: article;
 }
+export const ADD_COMMENT = gql`
+  mutation createComment(
+    $userId: ID!
+    $articleId: String!
+    $content: String!
+    $replyToCommentId: String!
+    $rootCommentId: String!
+  ) {
+    createComment(
+      userId: $userId
+      articleId: $articleId
+      content: $content
+      replyToCommentId: $replyToCommentId
+      rootCommentId: $rootCommentId
+    ) {
+      userId
+      articleId
+      content
+      replyToCommentId
+      rootCommentId
+    }
+  }
+`;
 
 export const ARTICLE_DETIAL = gql`
   # 根据文章id获取文章详情
   query ArticleDetail($id: ID!) {
     article(id: $id) {
       id
-      userId
       articleTitle
       articleContent
       articlePageView
-      articlePraiseCount
       articleDislikeCount
       articleCommentCount
-      updated_at
-      created_at
       user {
         id
         username
-        articles {
-          articleTitle
-          articleContent
+        headImg
+        sex
+      }
+      comment {
+        articleId
+        id
+        content
+        created_at
+        liks
+        rootCommentId
+        creator {
+          id
+          username
+          sex
+          headImg
+        }
+        comment {
+          articleId
+          id
+          content
+          created_at
+          rootCommentId
+          replyToCommentId
+          liks
+          creator {
+            id
+            username
+            sex
+            headImg
+          }
+          replyTo {
+            id
+            username
+            headImg
+            sex
+          }
         }
       }
     }

@@ -73,33 +73,6 @@ export default class AddArticle extends React.Component<
           changeTitle={this.changeTitle}
           handleChange={this.handleChange}
         />
-        {/* <div style={{ display: 'inline-block', width: '50%' }}>
-          <div
-            style={{
-              // width: '90%',
-              // margin: 'auto',
-              // marginTop: 50,
-              borderWidth: 1,
-              height: '100vh',
-              borderColor: '#000',
-              borderStyle: 'solid',
-            }}
-          >
-            <div>
-              <Input
-                style={{ height: 50, fontSize: 20 }}
-                onChange={this.changeTitle}
-                placeholder="文章标题"
-              ></Input>
-            </div>
-            <div className="editor-wrapper">
-              <BraftEditor
-                id="editor-with-code-highlighter"
-                onChange={this.handleChange}
-              />
-            </div>
-          </div>
-        </div> */}
 
         <MutaionComponent
           articleTitle={articleTitle}

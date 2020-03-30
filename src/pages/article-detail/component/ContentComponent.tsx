@@ -5,6 +5,11 @@ import moment from 'moment';
 import { ArticleDetailProps, buildPreviewHtml } from '../data.d';
 
 class ContentComponent extends React.Component<ArticleDetailProps> {
+  constructor(props) {
+    super(props);
+    console.log('this.props', this.props);
+  }
+
   //发帖距现在多长时间
   times(date: Date): string {
     return moment(new Date(date), 'YYYY-MM-DD HH:mm:ss').fromNow();

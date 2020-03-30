@@ -5,30 +5,28 @@ import styles from './index.less'
 import { ArticleDetailProps, buildPreviewHtml, ARTICLE_DETIAL } from './data.d';
 import { Input } from 'antd'
 import ContentComponent from './component/ContentComponent';
+import CommentComponent from './component/CommentComponent';
+import MutationComponent from './component/MutationComponent';
 import { Query, graphql } from 'react-apollo';
 
 class ArticlesDetail extends React.Component<ArticleDetailProps> {
 
-  constructor(props: any) {
+  constructor(props){
     super(props);
-    props.dispatch({
-      type: 'articleDetail/loadArticleDetail',
-      payload: {
-        id: props.match.params.id
-      }
-    })
+    this.state={
+      commentChange:'',
+    }
   }
 
-  componentWillUnmount() {
-    this.props.dispatch({
-      type: 'articleDetail/updateState',
-      payload: {
-        article: []
-      }
-    })
+  rootComment=()=>{
+    console.log('回复')
   }
 
-
+  changeComment=(e)=>{
+    this.setState({
+      commentChange:e.target.value
+    })
+  }
 
   render() {
     const { articleDetail: { article = [] } } = this.props;
@@ -36,6 +34,7 @@ class ArticlesDetail extends React.Component<ArticleDetailProps> {
     return (
       <Query query={ARTICLE_DETIAL} variables={{ id }}>
         {({ loading, data }) => {
+          console.log('dddddddddddddddddddddddddddddddddddddddddd')
           if (loading) return <div>loading......</div>;
           return (
             <Fragment>
@@ -53,9 +52,16 @@ class ArticlesDetail extends React.Component<ArticleDetailProps> {
                       }}
                       src={require('../../assets/head.jpg')}
                     />
-                    <Input></Input>
+                    <Input onChange={this.changeComment}></Input>
+
+                    <div onClick={this.rootComment.bind(this)}>回复</div>
+                    <MutationComponent content={this.state.commentChange} articleId={id}/>
                   </div>
-                  <div className={styles.comment}>评论区</div>
+
+                  <div className={styles.comment}>
+                    评论区
+                   <CommentComponent article={data.article} />
+                    </div>
                 </div>
               }
             </Fragment>

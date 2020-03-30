@@ -19,7 +19,8 @@ export default class Articles extends React.Component<ArticleItemProps, any> {
       <Fragment>
         <div style={{ display: 'inline-block', width: '70%' }}>
           <Query query={ALL_ARTICLES}>
-            {({ loading, data, refetch }) => {
+            {({ loading, data, error, refetch }) => {
+              if (error) return <Loading isCenter={true} />;
               if (loading) return <Loading isCenter={true} />;
               refetch();
               return (

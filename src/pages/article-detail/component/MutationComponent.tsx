@@ -8,14 +8,8 @@ import BraftEditor from 'braft-editor';
 import _ from 'lodash';
 import { Mutation } from 'react-apollo';
 import CodeHighlighter from 'braft-extensions/dist/code-highlighter';
-import ErrorMessage from '../../../Error';
-import {
-  AddArticleProps,
-  AddArticleState,
-  StateType,
-  buildPreviewHtml,
-  ADD_ARTICLE,
-} from '../data.d';
+
+import { ADD_COMMENT } from '../data.d';
 BraftEditor.use(
   CodeHighlighter({
     includeEditors: ['editor-with-code-highlighter'],
@@ -23,44 +17,28 @@ BraftEditor.use(
 );
 
 /**
- * 添加新文章
- * @date 2020-03-24
+ * 添加新评论
+ * @date 2020-03-230
  */
 class MutationComponent extends React.Component<any, any> {
-  delHtmlTag(str: string) {
-    return str.replace(/<[^>]+>/g, ''); //正则去掉所有的html标记
-  }
-
-  submit = (createArticle: () => Promise<any>) => {
-    const { articleTitle, editorState } = this.props;
-    if (_.isEmpty(articleTitle) || editorState.toHTML() === '<p></p>') {
-      message.error('文章标题或者内容不能为空~');
-      return;
-    }
-    try {
-      createArticle().then(() => history.push('/'));
-    } catch (e) {
-      console.log('eeeeeeeeeeeeeeeee', e);
-    }
+  submit = (createComment: () => Promise<any>) => {
+    createComment();
   };
-
   render() {
-    const { articleTitle, editorState } = this.props;
+    const { content, articleId } = this.props;
     return (
       <Mutation
-        mutation={ADD_ARTICLE}
+        mutation={ADD_COMMENT}
         variables={{
-          userdId: 1,
-          articleContent: editorState.toHTML(),
-          articleSubTitle: this.delHtmlTag(editorState.toHTML()).substring(
-            0,
-            100,
-          ),
-          articleTitle,
+          userId: 3,
+          content: content,
+          articleId: articleId,
+          replyToCommentId: '0',
+          rootCommentId: '0',
         }}
         onError={{}}
       >
-        {(createArticle: any, { data, loading, error }: any) => {
+        {(createComment: any, { data, loading, error }: any) => {
           if (error) {
             console.log('error', error);
             return <div>error</div>;
@@ -72,7 +50,7 @@ class MutationComponent extends React.Component<any, any> {
                 <div>
                   <Button
                     type="submit"
-                    onClick={this.submit.bind(this, createArticle)}
+                    onClick={this.submit.bind(this, createComment)}
                   >
                     提交
                   </Button>
@@ -82,6 +60,7 @@ class MutationComponent extends React.Component<any, any> {
           );
         }}
       </Mutation>
+      // <div>ddddd</div>
     );
   }
 }
