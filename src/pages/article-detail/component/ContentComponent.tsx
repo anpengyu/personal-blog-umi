@@ -12,6 +12,7 @@ class ContentComponent extends React.Component<ArticleDetailProps> {
 
   //发帖距现在多长时间
   times(date: Date): string {
+    console.log('article.created_at', date);
     return moment(new Date(date), 'YYYY-MM-DD HH:mm:ss').fromNow();
   }
 
@@ -21,6 +22,7 @@ class ContentComponent extends React.Component<ArticleDetailProps> {
   };
   render() {
     const { article } = this.props;
+    console.log('article', article);
     const { user } = article;
     return (
       <div className={styles.content}>

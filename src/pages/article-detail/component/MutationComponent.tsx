@@ -25,7 +25,8 @@ class MutationComponent extends React.Component<any, any> {
     createComment();
   };
   render() {
-    const { content, articleId } = this.props;
+    const { content, articleId, index11 } = this.props;
+    console.log('index11', index11);
     return (
       <Mutation
         mutation={ADD_COMMENT}
@@ -38,11 +39,11 @@ class MutationComponent extends React.Component<any, any> {
           },
         ]}
         variables={{
-          userId: 3,
+          userId: 2,
           content: content,
           articleId: articleId,
-          replyToCommentId: '0',
-          rootCommentId: '0',
+          replyToCommentId: 3, //0：直接评论文章,直接评论一级评论
+          rootCommentId: index11, //0：文章下的评论
         }}
         onError={{}}
       >

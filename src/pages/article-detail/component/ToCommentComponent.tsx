@@ -3,6 +3,7 @@ import { Loading, connect, history } from 'umi';
 import styles from '../index.less';
 import moment from 'moment';
 import { ArticleDetailProps, buildPreviewHtml } from '../data.d';
+import MutationComponent from './MutationComponent';
 
 class ContentComponent extends React.Component<ArticleDetailProps> {
   constructor(props) {
@@ -20,7 +21,7 @@ class ContentComponent extends React.Component<ArticleDetailProps> {
     history.push('/userInfo');
   };
   render() {
-    const { comment } = this.props;
+    const { comment, itemId } = this.props;
     const { creator, replyTo, content, created_at } = comment;
     const { username } = replyTo;
     console.log('<<<<<', username);
@@ -40,6 +41,12 @@ class ContentComponent extends React.Component<ArticleDetailProps> {
             marginBottom: 20,
           }}
         ></div>
+
+        <MutationComponent
+          articleId={comment.articleId}
+          index11={itemId}
+          content={'22222222222222'}
+        />
       </div>
     );
   }

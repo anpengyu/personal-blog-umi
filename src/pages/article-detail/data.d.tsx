@@ -53,6 +53,7 @@ export const ARTICLE_DETIAL = gql`
       articlePageView
       articleDislikeCount
       articleCommentCount
+      created_at
       user {
         id
         username

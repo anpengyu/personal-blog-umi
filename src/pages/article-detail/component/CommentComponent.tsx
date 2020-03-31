@@ -4,6 +4,7 @@ import styles from '../index.less';
 import moment from 'moment';
 import { ArticleDetailProps, buildPreviewHtml } from '../data.d';
 import ToCommentComponent from './ToCommentComponent';
+import MutationComponent from './MutationComponent';
 
 class ContentComponent extends React.Component<ArticleDetailProps> {
   constructor(props) {
@@ -40,13 +41,20 @@ class ContentComponent extends React.Component<ArticleDetailProps> {
             return (
               <div key={index}>
                 <div>{creator.username}</div>
-                <div>内容：{item.content}</div>
                 <div>{this.times(item.created_at)}</div>
+                <div>内容：{item.content}</div>
+
+                <MutationComponent
+                  content="111111111"
+                  index11={item.id}
+                  articleId={article.id}
+                />
+
                 <div style={{ marginTop: 20, backgroundColor: '#f6f6f6' }}>
-                  {comment.map((item: any, index: number) => {
+                  {comment.map((item1: any, index: number) => {
                     return (
                       <div style={{ marginLeft: 30 }} key={index}>
-                        <ToCommentComponent comment={item} />
+                        <ToCommentComponent comment={item1} itemId={item.id} />
                       </div>
                     );
                   })}
