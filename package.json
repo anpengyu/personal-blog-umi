@@ -28,6 +28,7 @@
     "draft-js-prism": "^1.0.6",
     "dva-logger": "^1.0.0",
     "graphql": "^14.6.0",
+    "graphql-compose": "^7.14.0",
     "graphql-tag": "^2.10.3",
     "highlight.js": "^9.18.1",
     "lint-staged": "^10.0.7",

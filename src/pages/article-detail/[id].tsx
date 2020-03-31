@@ -9,6 +9,7 @@ import CommentComponent from './component/CommentComponent';
 import MutationComponent from './component/MutationComponent';
 import { Query, graphql } from 'react-apollo';
 
+
 class ArticlesDetail extends React.Component<ArticleDetailProps> {
 
   constructor(props){
@@ -16,10 +17,6 @@ class ArticlesDetail extends React.Component<ArticleDetailProps> {
     this.state={
       commentChange:'',
     }
-  }
-
-  rootComment=()=>{
-    console.log('回复')
   }
 
   changeComment=(e)=>{
@@ -36,6 +33,7 @@ class ArticlesDetail extends React.Component<ArticleDetailProps> {
         {({ loading, data }) => {
           console.log('dddddddddddddddddddddddddddddddddddddddddd')
           if (loading) return <div>loading......</div>;
+
           return (
             <Fragment>
               {
@@ -53,8 +51,6 @@ class ArticlesDetail extends React.Component<ArticleDetailProps> {
                       src={require('../../assets/head.jpg')}
                     />
                     <Input onChange={this.changeComment}></Input>
-
-                    <div onClick={this.rootComment.bind(this)}>回复</div>
                     <MutationComponent content={this.state.commentChange} articleId={id}/>
                   </div>
 
@@ -72,7 +68,12 @@ class ArticlesDetail extends React.Component<ArticleDetailProps> {
   }
 }
 
-export default connect(({ articleDetail, loading }: { articleDetail: {}; loading: Loading }) => ({
-  articleDetail,
-  loading: loading.models.user,
-}))(ArticlesDetail)
+// export default connect(({ articleDetail, loading }: { articleDetail: {}; loading: Loading }) => ({
+//   articleDetail,
+//   loading: loading.models.user,
+// }))(ArticlesDetail)
+
+export default compose(
+  graphql(getAuthorsQuery, { name: "getAuthorsQuery" }),
+  graphql(addBookMutation, { name: "addBookMutation" })
+)(AddBook);

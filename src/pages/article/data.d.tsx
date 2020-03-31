@@ -53,7 +53,7 @@ const buildPreviewHtml = (content: String) => {
           }
           .container pre{
             padding: 15px;
-            background-color: #000;
+            background-color: #FDF6E3;
             border-radius: 5px;
             color:#fff
           }

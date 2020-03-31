@@ -6,10 +6,10 @@ import { connect, Loading, history } from 'umi';
 import { Input, message, Button } from 'antd';
 import BraftEditor from 'braft-editor';
 import _ from 'lodash';
-import { Mutation } from 'react-apollo';
+import { Mutation, Query } from 'react-apollo';
 import CodeHighlighter from 'braft-extensions/dist/code-highlighter';
 
-import { ADD_COMMENT } from '../data.d';
+import { ADD_COMMENT, ARTICLE_DETIAL } from '../data.d';
 BraftEditor.use(
   CodeHighlighter({
     includeEditors: ['editor-with-code-highlighter'],
@@ -29,6 +29,14 @@ class MutationComponent extends React.Component<any, any> {
     return (
       <Mutation
         mutation={ADD_COMMENT}
+        refetchQueries={[
+          {
+            query: ARTICLE_DETIAL,
+            variables: {
+              id: '42',
+            },
+          },
+        ]}
         variables={{
           userId: 3,
           content: content,
@@ -39,6 +47,7 @@ class MutationComponent extends React.Component<any, any> {
         onError={{}}
       >
         {(createComment: any, { data, loading, error }: any) => {
+          console.log('eeeee');
           if (error) {
             console.log('error', error);
             return <div>error</div>;

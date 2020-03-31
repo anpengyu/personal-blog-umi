@@ -50,7 +50,7 @@ class MutationComponent extends React.Component<any, any> {
       <Mutation
         mutation={ADD_ARTICLE}
         variables={{
-          userdId: 1,
+          userId: 1,
           articleContent: editorState.toHTML(),
           articleSubTitle: this.delHtmlTag(editorState.toHTML()).substring(
             0,
